@@ -20,11 +20,18 @@ let showList = (list) =>{
     let message = list.map((item ,i)=> {
         if(item.isDone){
             
-            return `<li>${item.body}</li><button onclick="deleteSomething(${i})">X</button></li><button onclick="toggle(${i})">UNDONE</button>`.strike()
+            return `<li id="item${i}">
+            <input type="checkbox" class="" name="checkbox"  onchange="checkboxChange(event,${i})"
+            checked>
+            ${item.body}
+            <button onclick="deleteSomething(${i})">X</button></li>`
            
         }else {
             // undoneList.push(item[i]);
-            return `<li>${item.body}</li><button onclick="deleteSomething(${i})">X</button></li><button onclick="toggle(${i})">DONE</button>`
+            return `<li id="item${i}">
+            <input type="checkbox" class="" name="checkbox"  onchange="checkboxChange(event,${i})"
+            check>
+            ${item.body}<button onclick="deleteSomething(${i})">X</button></li>`
         }
     }).join('')
 
@@ -57,15 +64,35 @@ function showUndone(){
 }
 
 let filterDone = () => {
-    if (document.getElementById("vehicle1").checked == true) {
-        for (let i = 0; i < items.length; i++) {
-            if (itemList[i].isDone == true) {document.getElementById(`item${i}`).style.display = "none"};
+    if (document.getElementById("box1").checked == true) {
+        for (let i = 0; i < itemList.length; i++) {
+            if (itemList[i].isDone == true) 
+            {document.getElementById(`item${i}`).style.display = "none"};
            
         }
     }
     else {
-        for (let i = 0; i < items.length; i++) {
+        for (let i = 0; i < itemList.length; i++) {
             if (itemList[i].isDone == true) {document.getElementById(`item${i}`).style.display = "block"};
         }
     }
+}
+let checkboxChange = (e, index) => {
+    let taskClassList = document.querySelectorAll("#resultArea li")
+
+    if (e.target.checked) {
+        itemList[index].isDone = true
+        console.log(itemList[index])
+        for (let i = 0; i < taskClassList.length; i++) {
+            taskClassList[index].classList.add("stroke")
+        }
+    } else if (!e.target.checked) {
+        itemList[index].isDone = false
+        console.log(itemList[index])
+        for (let i = 0; i < taskClassList.length; i++) {
+            taskClassList[index].classList.remove("stroke")
+        }
+    }
+    document.getElementById("tab-change").innerHTML = renderTabChange(taskList)
+
 }

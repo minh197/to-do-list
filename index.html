@@ -23,14 +23,14 @@
                   <h1 style="font-size: 40px; text-align: center;" class="display-4">To-do-list</h1>
                   
                   <p class="lead">
-                    <div class="row my-3">
+                    <div class="row my-3 Minh-style">
                         
                         <input style="width: 220px;" placeholder="Please input your to-do-list" type="text" id="text-input"/>
                         
                         <button id="addBtn" onclick="addItem()">Add</button>
                         <form action="/action_page.php">
-                            <input type="checkbox" id="box1" >
-                            <label onchange="filterDone" id="showBtn">Show undone tasks only!</label><br>
+                            <input onchange="filterDone()"type="checkbox" id="box1" checked=false >
+                            <label  id="showBtn">Show undone tasks only!</label><br>
                             
                           </form>
                        
