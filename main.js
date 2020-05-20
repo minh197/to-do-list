@@ -1,5 +1,6 @@
 
 let itemList =[];
+let previousList =[];
 
 
 let addItem= () =>{
@@ -14,6 +15,7 @@ let addItem= () =>{
    
    
     showList(itemList)
+    save()
 }
 
 let showList = (list) =>{
@@ -56,6 +58,7 @@ function toggle(i){
     }
 
     showList(itemList)
+    save();
 }
 function showUndone(){
     console.log(undoneList)
@@ -96,3 +99,18 @@ let checkboxChange = (e, index) => {
     document.getElementById("tab-change").innerHTML = renderTabChange(taskList)
 
 }
+let save = () =>{
+    localStorage.setItem("todo",JSON.stringify(itemList))
+}
+
+let loadData = () =>{
+    previousList = JSON.parse(localStorage.getItem("todo"));
+    if(previousList.length>0){
+        itemList =previousList
+        showList(itemList);
+    }else{
+        itemList=[];
+    }
+    
+}
+loadData();
